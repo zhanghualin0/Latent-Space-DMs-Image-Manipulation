@@ -6,7 +6,7 @@ for t in 1.0 0.8 0.6
         python main.py \
             --sh_file_name                          main_celeba_hf_local_encoder_pullback.sh    \
             --sample_idx                            $sample_idx                                 \
-            --device                                cuda:1                                      \
+            --device                                cuda:3                                      \
             --dtype                                 fp32                                        \
             --seed                                  0                                           \
             --model_name                            CelebA_HQ_HF                                \

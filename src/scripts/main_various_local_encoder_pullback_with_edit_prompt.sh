@@ -1,12 +1,12 @@
-for t in 0.7 0.6
+for t in 0.5 0.6 
     do
-    for sample_idx in 5
+    for sample_idx in 4
         do
-        for edit_prompt in "sitting dog" "tiger"
+        for edit_prompt in "a tiger"
             do
             python main.py \
                 --sh_file_name                          main_various_local_encoder_pullback_with_edit_prompt.sh   \
-                --device                                cuda:0                                      \
+                --device                                cuda:3                                      \
                 --sample_idx                            $sample_idx                                 \
                 --model_name                            stabilityai/stable-diffusion-2-1-base       \
                 --dataset_name                          Examples                                    \
