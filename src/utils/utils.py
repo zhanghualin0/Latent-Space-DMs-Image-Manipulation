@@ -475,7 +475,7 @@ def get_h(
     for down_block_idx, downsample_block in enumerate(self.down_blocks):
         if (op == 'down') & (block_idx == down_block_idx):
             sample, res_samples, h_space = down_block_forward(
-                downsample_block, hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states, timesteps=timestep, uk=None, 
+                downsample_block, hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states, timestep=timestep, uk=None, 
             )
             return h_space
         
@@ -574,7 +574,7 @@ def get_h_to_e(
     for down_block_idx, downsample_block in enumerate(self.down_blocks):
         if (op == 'down') & (block_idx == down_block_idx) & after_res_or_sa:
             sample, res_samples, h_space = down_block_forward(
-                downsample_block, hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states, timesteps=timestep, uk=None, after_res=self.after_res, after_sa=self.after_sa,
+                downsample_block, hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states, timestep=timestep, uk=None, after_res=self.after_res, after_sa=self.after_sa,
             )
             assert (sample == res_samples[-1]).all()
             sample = input_h.view(pca_rank, *sample.shape[1:])
