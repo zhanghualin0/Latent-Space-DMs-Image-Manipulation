@@ -349,7 +349,7 @@ def get_stable_diffusion_model(args):
 # monkey patch (basic method)
 def forward_dh(
         self, sample=None, timestep=None, encoder_hidden_states=None, cross_attention_kwargs=None,
-        op=None, block_idx=None, uk=None, verbose=False, 
+        op=None, block_idx=None, uk=None, verbose=False, after_res=True, after_sa = False,
     ):
     '''
     Args
@@ -383,6 +383,7 @@ def forward_dh(
     sample = self.conv_in(sample)
 
     # down
+    after_res_or_sa = after_res or after_sa
     down_block_res_samples = (sample,)
     for down_block_idx, downsample_block in enumerate(self.down_blocks):
         if (op == 'down') & (block_idx == down_block_idx) & after_res_or_sa:
@@ -635,7 +636,7 @@ def get_h_to_e(
     return sample
 
 # non-monkey patch (basic method)
-def down_block_forward(down_block, hidden_states, temb, encoder_hidden_states, timestep, uk=None, after_res=False, after_sa=False):
+def down_block_forward(down_block, hidden_states, temb, encoder_hidden_states, timestep, uk=None, after_res=True, after_sa=False):
     assert after_res != after_sa
     
     # TODO(Patrick, William) - attention mask is not used
@@ -653,7 +654,7 @@ def down_block_forward(down_block, hidden_states, temb, encoder_hidden_states, t
             hidden_states = attn(
                 hidden_states,
                 encoder_hidden_states=encoder_hidden_states,
-                cross_attention_kwargs=None,
+                # cross_attention_kwargs=None,
             ).sample
 
         elif after_sa:

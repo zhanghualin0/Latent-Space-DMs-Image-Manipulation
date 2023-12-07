@@ -34,7 +34,7 @@ if __name__ == "__main__":
         # )
 
         # OPS_BLOCKS_LIST = [['mid', 0], ['down', 0], ['down', 1], ['up', 0], ['up', 1]]
-        OPS_BLOCKS_LIST = [['up', 0], ['up', 1]]
+        OPS_BLOCKS_LIST = [['down', 0], ['down', 1], ['down', 2], ['down', 3], ['mid', 0], ['up', 0], ['up', 1], ['up', 2], ['up', 3]]
 
         for (op, block_idx) in OPS_BLOCKS_LIST:
             edit.run_edit_local_encoder_pullback_zt(
