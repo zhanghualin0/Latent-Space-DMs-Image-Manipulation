@@ -6,7 +6,7 @@ for t in 0.6
             do
             python main_various_layer.py \
                 --sh_file_name                          main_various_layer_various_local_encoder_pullback_with_edit_prompt.sh   \
-                --device                                cuda:1                                      \
+                --device                                cuda:0                                      \
                 --sample_idx                            $sample_idx                                 \
                 --model_name                            stabilityai/stable-diffusion-2-1-base       \
                 --dataset_name                          Examples                                    \
