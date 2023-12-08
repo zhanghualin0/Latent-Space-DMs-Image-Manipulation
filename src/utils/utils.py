@@ -658,6 +658,7 @@ def down_block_forward(down_block, hidden_states, temb, encoder_hidden_states, t
             ).sample
 
         elif after_sa:
+            h_space = hidden_states.clone()
             # 1. Input
             if attn.is_input_continuous:
                 batch, _, height, width = hidden_states.shape
@@ -683,8 +684,8 @@ def down_block_forward(down_block, hidden_states, temb, encoder_hidden_states, t
                     hidden_states,
                     encoder_hidden_states=encoder_hidden_states,
                     timestep=timestep,
-                    cross_attention_kwargs=None,
-                    class_labels=None,
+                    # cross_attention_kwargs=None,
+                    # class_labels=None,
                 )
 
                 if block_idx == 1:
