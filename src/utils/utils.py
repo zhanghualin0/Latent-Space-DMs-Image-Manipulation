@@ -472,15 +472,30 @@ def get_h(
     sample = self.conv_in(sample)
 
     # down
+    # down_block_res_samples = (sample,)
+    # for down_block_idx, downsample_block in enumerate(self.down_blocks):
+    #     if (op == 'down') & (block_idx == down_block_idx):
+    #         sample, res_samples, h_space = down_block_forward(
+    #             downsample_block, hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states, timestep=timestep, uk=None, 
+    #         )
+    #         return h_space
+        
+    #     elif hasattr(downsample_block, "has_cross_attention") and downsample_block.has_cross_attention:
+    #         sample, res_samples = downsample_block(
+    #             hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states,
+    #         )
+    #     else:
+    #         sample, res_samples = downsample_block(hidden_states=sample, temb=emb)
+
+    #     if (op == 'down') & (block_idx == down_block_idx):
+    #         return sample
+
+    #     down_block_res_samples += res_samples
+    
+    # down
     down_block_res_samples = (sample,)
     for down_block_idx, downsample_block in enumerate(self.down_blocks):
-        if (op == 'down') & (block_idx == down_block_idx):
-            sample, res_samples, h_space = down_block_forward(
-                downsample_block, hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states, timestep=timestep, uk=None, 
-            )
-            return h_space
-        
-        elif hasattr(downsample_block, "has_cross_attention") and downsample_block.has_cross_attention:
+        if hasattr(downsample_block, "has_cross_attention") and downsample_block.has_cross_attention:
             sample, res_samples = downsample_block(
                 hidden_states=sample, temb=emb, encoder_hidden_states=encoder_hidden_states,
             )
@@ -490,7 +505,7 @@ def get_h(
         if (op == 'down') & (block_idx == down_block_idx):
             return sample
 
-        down_block_res_samples += res_samples
+        down_block_res_samples += res_samples   
 
     # mid
     sample = self.mid_block(sample, emb, encoder_hidden_states=encoder_hidden_states)

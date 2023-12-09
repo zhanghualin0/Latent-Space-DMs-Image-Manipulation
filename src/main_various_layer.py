@@ -33,14 +33,13 @@ if __name__ == "__main__":
         #     vis_num=4, vis_num_pc=2, pca_rank=2, edit_prompt=args.edit_prompt,
         # )
 
-        # OPS_BLOCKS_LIST = [['mid', 0], ['down', 0], ['down', 1], ['up', 0], ['up', 1]]
-        # OPS_BLOCKS_LIST = [['down', 0], ['down', 1], ['down', 2], ['mid', 0], ['up', 0], ['up', 1], ['up', 2]]
-        OPS_BLOCKS_LIST = [['up', 2]]
+        OPS_BLOCKS_LIST = [['down', 0], ['down', 1], ['down', 2], ['down', 3], ['mid', 0], ['up', 0], ['up', 1], ['up', 2], ['up', 3]]
+        # OPS_BLOCKS_LIST = [['mid', 0]]
 
         for (op, block_idx) in OPS_BLOCKS_LIST:
             edit.run_edit_local_encoder_pullback_zt(
             idx=args.sample_idx, op=op, block_idx=block_idx,
-            vis_num=4, vis_num_pc=2, pca_rank=2, edit_prompt=args.edit_prompt,
+            vis_num=6, vis_num_pc=1, pca_rank=1, edit_prompt=args.edit_prompt,
         )
 
     if args.run_edit_parallel_transport:

@@ -274,7 +274,7 @@ class EditStableDiffusion(object):
 
         original_zt = zt.clone()
         for pc_idx in range(vis_num_pc):
-            for direction in [1, -1]: # +v, -v
+            for direction in [1]: # +v, -v
                 # declare experiment name
                 if direction == 1:
                     self.EXP_NAME = f'Edit_zt-{self.dataset_name}_{idx}-edit_{self.edit_t}T-{op}-block_{block_idx}-pc_{pc_idx:0=3d}_pos-edit_prompt_{self.edit_prompt}'

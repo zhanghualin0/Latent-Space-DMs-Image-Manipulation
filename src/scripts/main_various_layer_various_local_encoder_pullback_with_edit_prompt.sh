@@ -1,6 +1,6 @@
 for t in 0.6 
     do
-    for sample_idx in 4
+    for sample_idx in 7
         do
         for edit_prompt in "a white tiger"
             do
