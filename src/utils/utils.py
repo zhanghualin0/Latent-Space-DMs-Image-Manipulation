@@ -12,6 +12,7 @@ import torch.nn as nn
 
 from einops import rearrange, einsum
 
+
 ########
 # path #
 ########
@@ -315,7 +316,7 @@ def step(self, et, t, xt, eta=0.0, **kwargs):
     return SchedulerOutput(xt_next, P_xt)
 
 def get_stable_diffusion_model(args):
-    # load from hf
+    # load from huggingface
     model = StableDiffusionPipeline.from_pretrained(args.model_name, torch_dtype=args.dtype)
     model = model.to(torch_device = args.device)
 
@@ -1355,6 +1356,14 @@ def get_dataset(args):
             dtype = args.dtype, 
             image_size = 512, # Stable-Diffusion
             dataset_name = 'Examples',
+        )
+    elif args.dataset_name == 'AFHQ':
+            dataset = ImgDataset(
+            image_root = DATASET_PATHS['AFHQ'], 
+            device = args.device, 
+            dtype = args.dtype, 
+            image_size = 512, # High resolution DM
+            dataset_name = 'AFHQ',
         )
     elif args.dataset_name == 'CelebA_HQ':
         # dataset = BenchmarkDataset(

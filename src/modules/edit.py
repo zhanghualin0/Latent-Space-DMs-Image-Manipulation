@@ -34,7 +34,7 @@ class EditStableDiffusion(object):
         self.seed = args.seed
         self.pca_device     = args.pca_device
         self.buffer_device  = args.buffer_device
-        self.memory_bound   = args.memory_bound
+        self.memory_bound   = args.memory_bound # 5
 
         # get model
         self.pipe = get_stable_diffusion_model(args)
@@ -298,8 +298,11 @@ class EditStableDiffusion(object):
                         use_edit_prompt=self.x_space_guidance_use_edit_prompt,
                     )
                     zt_list.append(zt_edit)
+
                 zt = torch.cat(zt_list, dim=0)
+                # print('the the the the the the list size is', zt.size(0))
                 zt = zt[::(zt.size(0) // vis_num)]
+                # print('the the the the the the list size is', zt.size(0))
 
                 # zt -> z0
                 self.DDIMforwardsteps(
@@ -412,7 +415,7 @@ class EditStableDiffusion(object):
 
         # save traj
         latents = zt
-
+        
         #############################################
         # denoising loop (t_start_idx -> t_end_idx) #
         #############################################
@@ -432,7 +435,7 @@ class EditStableDiffusion(object):
 
             # split zt to avoid OOM
             latents = latents.to(device=self.buffer_device)
-            if latents.size(0) == 1:
+            if latents.size(0) <= memory_bound:
                 latents_buffer = [latents]
             else:
                 latents_buffer = list(latents.chunk(latents.size(0) // memory_bound))
@@ -477,6 +480,7 @@ class EditStableDiffusion(object):
         latents = 1 / 0.18215 * latents
         x0 = self.vae.decode(latents).sample
         x0 = (x0 / 2 + 0.5).clamp(0, 1)
+        tvu.save_image(x0[-1], os.path.join(self.result_folder, f'x0_gen-{self.EXP_NAME}.png'), nrow = x0.size(0))
         tvu.save_image(x0, os.path.join(self.result_folder, f'x0_gen-{self.EXP_NAME}.png'), nrow = x0.size(0))
 
         return latents
