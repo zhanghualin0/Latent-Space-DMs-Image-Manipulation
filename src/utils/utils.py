@@ -177,11 +177,11 @@ def get_h_uncond(
         else:
             x = upsample_block(x, res_samples, emb)
     
-    # return h
-    if (op == 'up') & (block_idx == up_block_idx):
-        if verbose:
-            print(f'op : {op}, block_idx : {block_idx}, return h.shape : {x.shape}')
-        return x
+        # return h
+        if (op == 'up') & (block_idx == up_block_idx):
+            if verbose:
+                print(f'op : {op}, block_idx : {block_idx}, return h.shape : {x.shape}')
+            return x
 
     raise ValueError(f'(op, block_idx) = ({op, block_idx}) is not valid')
 
