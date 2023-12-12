@@ -145,18 +145,40 @@ def get_h_uncond(
 
     # 3. down
     down_block_res_samples = (x,)
-    for downsample_block in self.down_blocks:
+
+    for down_block_idx, downsample_block in enumerate(self.down_blocks):
         if hasattr(downsample_block, "skip_conv"):
             x, res_samples, skip_sample = downsample_block(
                 hidden_states=x, temb=emb, skip_sample=skip_sample
             )
         else:
             x, res_samples = downsample_block(hidden_states=x, temb=emb)
+        
+        if (op == 'down') & (block_idx == down_block_idx):
+            return x
+        
         down_block_res_samples += res_samples
 
     # 4. mid
     x = self.mid_block(x, emb)
     if (op == 'mid') & (block_idx == 0):
+        if verbose:
+            print(f'op : {op}, block_idx : {block_idx}, return h.shape : {x.shape}')
+        return x
+    
+    # 5. up
+    skip_sample = None
+    for up_block_idx, upsample_block in enumerate(self.up_blocks):
+        res_samples = down_block_res_samples[-len(upsample_block.resnets) :]
+        down_block_res_samples = down_block_res_samples[: -len(upsample_block.resnets)]
+
+        if hasattr(upsample_block, "skip_conv"):
+            x, skip_sample = upsample_block(x, res_samples, emb, skip_sample)
+        else:
+            x = upsample_block(x, res_samples, emb)
+    
+    # return h
+    if (op == 'up') & (block_idx == up_block_idx):
         if verbose:
             print(f'op : {op}, block_idx : {block_idx}, return h.shape : {x.shape}')
         return x
@@ -1364,6 +1386,14 @@ def get_dataset(args):
             dtype = args.dtype, 
             image_size = 512, # High resolution DM
             dataset_name = 'AFHQ',
+        )
+    elif args.dataset_name == 'Flowers':
+            dataset = ImgDataset(
+            image_root = DATASET_PATHS['Flowers'], 
+            device = args.device, 
+            dtype = args.dtype, 
+            image_size = 512, # High resolution DM
+            dataset_name = 'Flowers',
         )
     elif args.dataset_name == 'CelebA_HQ':
         # dataset = BenchmarkDataset(

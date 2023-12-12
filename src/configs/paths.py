@@ -8,6 +8,7 @@ DATASET_PATHS = {
 	
 	# stable diffusion 
     'Examples'  	: 'datasets/examples',
+    'Flowers'       : 'datasets/flowers',
 }
 
 MODEL_PATHS = {

@@ -5,6 +5,10 @@ from modules.edit import (
     EditUncondDiffusion,
 )
 
+from utils.utils import (
+    get_ms_coco_prompt_list
+)
+
 if __name__ == "__main__":
     ##########
     # preset #

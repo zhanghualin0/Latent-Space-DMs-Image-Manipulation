@@ -481,7 +481,7 @@ class EditStableDiffusion(object):
         x0 = self.vae.decode(latents).sample
         x0 = (x0 / 2 + 0.5).clamp(0, 1)
         tvu.save_image(x0[-1], os.path.join(self.result_folder, f'x0_gen-{self.EXP_NAME}.png'), nrow = x0.size(0))
-        tvu.save_image(x0, os.path.join(self.result_folder, f'x0_gen-{self.EXP_NAME}.png'), nrow = x0.size(0))
+        # tvu.save_image(x0, os.path.join(self.result_folder, f'x0_gen-{self.EXP_NAME}.png'), nrow = x0.size(0))
 
         return latents
 
@@ -753,7 +753,7 @@ class EditUncondDiffusion(object):
         # get latent code
         original_xt = xt.detach()
         for pc_idx in range(vis_num_pc):
-            for direction in [1, -1]:
+            for direction in [1]:
                 if direction == 1:
                     self.EXP_NAME = f'Edit_xt-{self.dataset_name}_{idx}-edit_{self.edit_t}T-{op}-block_{block_idx}-pc_{pc_idx:0=3d}_pos'
                 elif direction == -1:
