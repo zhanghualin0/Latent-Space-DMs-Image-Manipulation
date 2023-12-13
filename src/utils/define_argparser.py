@@ -163,7 +163,8 @@ def preset(args):
         if args.model_name == 'CelebA_HQ':
             raise NotImplementedError('Model weight deprecated...')
         elif args.model_name in ["FFHQ_P2", "AFHQ_P2", "Flower_P2"]:
-            raise NotImplementedError('Please download P2 weight from https://github.com/jychoi118/P2-weighting')
+            # raise NotImplementedError('Please download P2 weight from https://github.com/jychoi118/P2-weighting')
+            pass
         elif args.model_name in ['LSUN_bedroom', 'LSUN_cat', 'LSUN_horse']:
             raise NotImplementedError('Please download P2 weight from https://github.com/jychoi118/P2-weighting')
         elif args.model_name in ['CelebA_HQ_HF', 'LSUN_church_HF', 'FFHQ_HF']:

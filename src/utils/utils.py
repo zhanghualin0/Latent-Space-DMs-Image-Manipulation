@@ -27,7 +27,7 @@ from configs.paths import (
 ####################
 from diffusers import DDIMScheduler, DDIMPipeline
 
-# from models.guided_diffusion.script_util import g_DDPM
+from models.guided_diffusion.script_util import g_DDPM
 
 def get_custom_diffusion_scheduler(args):
     '''

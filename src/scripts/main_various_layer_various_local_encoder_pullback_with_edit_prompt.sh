@@ -2,7 +2,7 @@ for t in 0.5 0.6 0.7
     do
     for sample_idx in 0
         do
-        for edit_prompt in "sunflower with orange petals"
+        for edit_prompt in "sunflower"
             do
             python main_various_layer.py \
                 --sh_file_name                          main_various_layer_various_local_encoder_pullback_with_edit_prompt.sh   \

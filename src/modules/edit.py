@@ -1693,7 +1693,7 @@ class EditUncondDiffusion(object):
         if save_image:
             image = (xt / 2 + 0.5).clamp(0, 1)
             tvu.save_image(
-                image, os.path.join(self.result_folder, f'x0_gen-{self.EXP_NAME}.png'), nrow = image.size(0),
+                image[-1], os.path.join(self.result_folder, f'x0_gen-{self.EXP_NAME}.png'), nrow = image.size(0),
             )
 
             # visualize alignment btw. et and et-1
