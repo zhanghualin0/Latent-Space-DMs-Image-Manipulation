@@ -1,7 +1,7 @@
 from PIL import Image
 
 # Replace 'path_to_image.jpg' with the path to your image file
-image_path = 'src/datasets/examples/5.jpg'
+image_path = 'src/datasets/afhq/2.jpg'
 
 # Open the image file using PIL (Python Imaging Library)
 with Image.open(image_path) as img:

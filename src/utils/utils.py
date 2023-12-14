@@ -1404,7 +1404,7 @@ def get_dataset(args):
             image_root = DATASET_PATHS['CelebA_HQ'], 
             device = args.device, 
             dtype = args.dtype, 
-            image_size = 256, # High resolution DM
+            image_size = 512, # High resolution DM
             dataset_name = 'CelebA_HQ',
         )
     elif args.dataset_name == 'Flower':

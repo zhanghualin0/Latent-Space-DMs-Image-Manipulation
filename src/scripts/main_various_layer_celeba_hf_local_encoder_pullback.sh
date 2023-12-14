@@ -1,7 +1,7 @@
 # 
 for t in 0.6
     do
-    for sample_idx in 0
+    for sample_idx in 11
         do
         python main_various_layer.py \
             --sh_file_name                          main_various_layer_celeba_hf_local_encoder_pullback.sh    \
